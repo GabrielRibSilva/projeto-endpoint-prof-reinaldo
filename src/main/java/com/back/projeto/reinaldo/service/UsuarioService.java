@@ -6,6 +6,7 @@ package com.back.projeto.reinaldo.service;
 
 import com.back.projeto.reinaldo.model.Usuario;
 import com.back.projeto.reinaldo.repository.UsuarioRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,25 @@ public class UsuarioService {
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-
-//    public Optional<Usuario> getUsuario(Long id) {
-//        return usuarioRepository.findById(id);
-//    }
-
+    
     public Usuario salvar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+    
+    public List<Usuario> listarUsuarios(){
+        return usuarioRepository.findAll();
+    }
+    
+    public Optional<Usuario> getUsuario(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
+    public Usuario editarUsuario(Usuario pessoa){
+        return usuarioRepository.save(pessoa);
+    }
+    
+    public void deleteUsuario(Long id){
+        usuarioRepository.deleteById(id);
+    }
+
 }
