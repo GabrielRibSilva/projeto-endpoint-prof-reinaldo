@@ -22,21 +22,23 @@ public class Usuario {
     private Long id = 1L;
     
     private String nome;
-    
+    private int idade;
     private String email;
     
     public Usuario (){
         
     }
     
-    public Usuario (String nome, String email) {
+    public Usuario (String nome, int idade, String email) {
         this.nome = nome;
+        this.idade = idade;
         this.email = email;
     }
     
-    public Usuario (Long id, String nome, String email) {
+    public Usuario (Long id, String nome, int idade, String email) {
         this.id = id;
         this.nome = nome;
+        this.idade = idade;
         this.email = email;
     }
 
@@ -55,7 +57,15 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public int getIdade(){
+        return idade;
+    }
 
+    public void setIdade(int idade){
+        this.idade = idade;
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -66,9 +76,11 @@ public class Usuario {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.nome);
-        hash = 79 * hash + Objects.hashCode(this.email);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.nome);
+        hash = 29 * hash + this.idade;
+        hash = 29 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
@@ -84,15 +96,21 @@ public class Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
+        if (this.idade != other.idade) {
+            return false;
+        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        return Objects.equals(this.email, other.email);
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "nome=" + nome + ", email=" + email + '}';
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + '}';
     }
     
     

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Gabriel Ribeiro
  */
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
     
