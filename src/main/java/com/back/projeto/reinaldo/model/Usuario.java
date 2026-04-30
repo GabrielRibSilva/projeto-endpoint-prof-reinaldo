@@ -22,24 +22,27 @@ public class Usuario {
     private Long id = 1L;
     
     private String nome;
-    private int idade;
+    private String cpf;
     private String email;
+    private String senha;
     
     public Usuario (){
         
     }
     
-    public Usuario (String nome, int idade, String email) {
+    public Usuario (String nome, String cpf, String email, String senha) {
         this.nome = nome;
-        this.idade = idade;
+        this.cpf = cpf;
         this.email = email;
+        this.senha = senha;
     }
     
-    public Usuario (Long id, String nome, int idade, String email) {
+    public Usuario (Long id, String nome, String cpf, String email, String senha) {
         this.id = id;
         this.nome = nome;
-        this.idade = idade;
+        this.cpf = cpf;
         this.email = email;
+        this.senha = senha;
     }
 
     public Long getId() {
@@ -57,15 +60,15 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    public int getIdade(){
-        return idade;
+
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setIdade(int idade){
-        this.idade = idade;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -74,13 +77,22 @@ public class Usuario {
         this.email = email;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.nome);
-        hash = 29 * hash + this.idade;
-        hash = 29 * hash + Objects.hashCode(this.email);
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.nome);
+        hash = 89 * hash + Objects.hashCode(this.cpf);
+        hash = 89 * hash + Objects.hashCode(this.email);
+        hash = 89 * hash + Objects.hashCode(this.senha);
         return hash;
     }
 
@@ -96,13 +108,16 @@ public class Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (this.idade != other.idade) {
-            return false;
-        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
+        if (!Objects.equals(this.cpf, other.cpf)) {
+            return false;
+        }
         if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
         return Objects.equals(this.id, other.id);
@@ -110,9 +125,9 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + '}';
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", senha=" + senha + '}';
     }
-    
-    
+
+
     
 }

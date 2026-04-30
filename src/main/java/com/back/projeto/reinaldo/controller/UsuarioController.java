@@ -29,21 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
     
     private UsuarioService usuarioService;
-
-//    @GetMapping
-//    private String usuarioTeste(){
-//        return "Hello, this application pass!";
-//    }
     
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    
-//    @GetMapping("/{id}")
-//    public Usuario getUsuario(@PathVariable("id") Long id){     
-//        return usuarioService.getUsuario(id).orElse(null);
-//    }
-    
+
     @PostMapping
     public Usuario criarUsuario(@RequestBody Usuario usuario) {
         return usuarioService.salvar(usuario);
