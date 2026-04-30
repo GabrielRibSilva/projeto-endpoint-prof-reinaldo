@@ -16,31 +16,39 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UsuarioService {
-    
+
     private UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-    
+
     public Usuario salvar(Usuario usuario) {
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+            throw new RuntimeException("E-mail já cadastrado!");
+        }
         return usuarioRepository.save(usuario);
     }
-    
-    public List<Usuario> listarUsuarios(){
+
+    public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
-    
+
     public Optional<Usuario> getUsuario(Long id) {
         return usuarioRepository.findById(id);
     }
 
-    public Usuario editarUsuario(Usuario pessoa){
+    public Usuario editarUsuario(Usuario pessoa) {
         return usuarioRepository.save(pessoa);
     }
-    
-    public void deleteUsuario(Long id){
+
+    public void deleteUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
 
+    public boolean validarLogin(String email, String senha) {
+        return usuarioRepository.findByEmail(email)
+                .map(user -> user.getSenha().equals(senha))
+                .orElse(false);
+    }
 }

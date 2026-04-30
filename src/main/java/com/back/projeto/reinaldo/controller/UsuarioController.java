@@ -27,35 +27,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
-    
+
     private UsuarioService usuarioService;
-    
+
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
     @PostMapping
-    public Usuario criarUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.salvar(usuario);
+    public ResponseEntity<?> salvarUsuario(@RequestBody Usuario usuario) {
+        try {
+            Usuario novo = usuarioService.salvar(usuario);
+            return ResponseEntity.ok(novo);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(409).body(e.getMessage());
+        }
     }
-    
+
     @GetMapping()
-    public List<Usuario> listarUsuarios(){
+    public List<Usuario> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
-    
+
     @GetMapping("/{id}")
-    public Usuario getUsuario(@PathVariable("id") Long id){     
+    public Usuario getUsuario(@PathVariable("id") Long id) {
         return usuarioService.getUsuario(id).orElse(null);
     }
-    
+
     @PutMapping
-    public Usuario editarUsuario(@RequestBody Usuario usuario){
+    public Usuario editarUsuario(@RequestBody Usuario usuario) {
         return usuarioService.editarUsuario(usuario);
     }
-    
+
     @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable Long id){     
+    public void deleteUsuario(@PathVariable Long id) {
         usuarioService.deleteUsuario(id);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Usuario usuario) {
+        boolean logado = usuarioService.validarLogin(usuario.getEmail(), usuario.getSenha());
+        return logado ? ResponseEntity.ok().build() : ResponseEntity.status(401).build();
     }
 }
